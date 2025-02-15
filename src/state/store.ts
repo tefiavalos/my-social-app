@@ -2,6 +2,7 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 import authReducer from "./authSlice";
+import feedReducer from "./feedSlice"; // Importar el feedReducer
 
 const persistConfig = {
   key: "root",
@@ -9,7 +10,11 @@ const persistConfig = {
   whitelist: ["auth"], 
 };
 
-const rootReducer = combineReducers({ auth: authReducer });
+const rootReducer = combineReducers({
+  auth: authReducer,
+  feed: feedReducer, 
+});
+
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
