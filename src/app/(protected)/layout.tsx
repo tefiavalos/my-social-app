@@ -1,21 +1,22 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { RootState } from "@/state/store";
 
-export default function Home() {
+export default function ProtectedLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const authToken = useSelector((state: RootState) => state.auth.user);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     if (!authToken) {
       router.replace("/login");
-    } else {
-      router.replace("/feed");
     }
   }, [authToken, router]);
 
-  return null;
-}
+  if (!isMounted || !authToken) return null;
 
+  return <>{children}</>;
+}
