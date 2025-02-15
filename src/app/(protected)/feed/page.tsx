@@ -1,14 +1,19 @@
 "use client";
 import { useState } from "react";
 import { useFeed } from "@/hooks/useFeed";
+import { useAuth } from "@/hooks/useAuth";
 
 const FeedPage = () => {
   const { posts, handleCommentSubmit, loading } = useFeed();
+  const { handleLogout } = useAuth();
   const [newComment, setNewComment] = useState<{ [key: number]: string }>({});
 
   return (
     <div>
       <h1>Feed</h1>
+      <button onClick={handleLogout} style={{ marginBottom: "10px" }}>
+        Logout
+      </button>
       {loading ? <p>Cargando...</p> : null}
       {posts.map(post => (
         <div key={post.id} style={{ border: "1px solid #ccc", padding: "10px", marginBottom: "10px" }}>
