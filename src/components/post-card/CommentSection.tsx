@@ -1,0 +1,42 @@
+import { Button, Input } from "@/components";
+import { useState } from "react";
+
+interface CommentSectionProps {
+  postId: number;
+  comments: string[];
+  onCommentSubmit: (postId: number, comment: string) => void;
+}
+
+const CommentSection: React.FC<CommentSectionProps> = ({ postId, comments, onCommentSubmit }) => {
+  const [newComment, setNewComment] = useState("");
+
+  return (
+    <div className="mt-4">
+      <h3 className="text-lg font-semibold">Comentarios</h3>
+      <ul className="bg-gray-100 p-2 rounded-md mb-2">
+        {comments.map((comment, index) => (
+          <li key={index} className="text-gray-700">{comment}</li>
+        ))}
+      </ul>
+
+      <div className="flex items-center space-x-2">
+        <Input
+          type="text"
+          value={newComment}
+          onChange={(e) => setNewComment(e.target.value)}
+          placeholder="Escribe un comentario..."
+        />
+        <Button
+          onClick={() => {
+            onCommentSubmit(postId, newComment);
+            setNewComment("");
+          }}
+        >
+          Comentar
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export default CommentSection;
