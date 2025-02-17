@@ -2,7 +2,8 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 import authReducer from "./authSlice";
-import feedReducer from "./feedSlice"; // Importar el feedReducer
+import feedReducer from "./feedSlice";
+import errorReducer from "./errorSlice";
 
 const persistConfig = {
   key: "root",
@@ -13,6 +14,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   auth: authReducer,
   feed: feedReducer,
+  error: errorReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

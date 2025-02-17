@@ -18,10 +18,10 @@ const CommentSection: React.FC<CommentSectionProps> = ({
 
   return (
     <div className="mt-4">
-      <h3 className="text-lg font-semibold">Comentarios</h3>
-      <ul className="bg-gray-100 p-2 rounded-md mb-2">
+      <h3 className="text-lg font-semibold text-primary">Comentarios</h3>
+      <ul className="bg-light p-2 rounded-md mb-2">
         {comments.map((comment, index) => (
-          <li key={index} className="text-gray-700">
+          <li key={index} className="text-accent">
             {comment}
           </li>
         ))}

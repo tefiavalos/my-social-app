@@ -10,18 +10,18 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#111827', // Negro profundo
-        secondary: '#FACC15', // Dorado vibrante
-        accent: '#EC4899', // Fucsia intenso
-        darkPurple: '#7C3AED', // Morado oscuro
-        light: '#FFFFFF', // Blanco puro
+        primary: '#111827', 
+        secondary: '#FACC15', 
+        accent: '#EC4899', 
+        darkPurple: '#7C3AED', 
+        light: '#FFFFFF', 
       },
       fontFamily: {
         sans: ['Poppins', 'Montserrat', 'Inter', 'sans-serif'],
       },
       boxShadow: {
-        soft: '0px 4px 12px rgba(0, 0, 0, 0.1)', // Sombra sutil
-        glow: '0px 0px 10px rgba(250, 204, 21, 0.6)', // Efecto de brillo dorado
+        soft: '0px 4px 12px rgba(0, 0, 0, 0.1)', 
+        glow: '0px 0px 10px rgba(250, 204, 21, 0.6)', 
       },
       borderRadius: {
         xl: '12px',

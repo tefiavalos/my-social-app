@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setPosts, addPosts, addComment } from "@/state/feedSlice";
 import { RootState, AppDispatch } from "@/state/store";
+import { clearError, setError } from "@/state/errorSlice";
 
 export const useFeed = () => {
   const [loading, setLoading] = useState(false);
@@ -19,7 +20,7 @@ export const useFeed = () => {
     try {
       console.log(`Fetching page ${pageNumber}`);
       const res = await axios.get(`/api/posts?page=${pageNumber}`);
-
+      dispatch(clearError());
       if (res.data.posts.length === 0) {
         setHasMore(false);
       } else {
@@ -27,6 +28,7 @@ export const useFeed = () => {
       }
     } catch (error) {
       console.error("Error al obtener los posts:", error);
+      dispatch(setError("Error al obtener los posts"));
     } finally {
       setLoading(false);
     }
@@ -56,8 +58,10 @@ export const useFeed = () => {
     try {
       const res = await axios.post("/api/posts", { postId, comment });
       dispatch(addComment(res.data));
+      dispatch(clearError());
     } catch (error) {
       console.error("Error al agregar el comentario:", error);
+      dispatch(setError("Error al agregar el comentario"));
     } finally {
       setLoading(false);
     }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuth } from "@/hooks/useAuth";
-import { Button, Input } from "@/components";
+import { Alert, Button, Input } from "@/components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -9,13 +9,17 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/state/store";
 
 const schema = yup.object().shape({
-  email: yup.string().email("Email inválido").required("El email es obligatorio"),
+  email: yup
+    .string()
+    .email("Email inválido")
+    .required("El email es obligatorio"),
   password: yup.string().required("La contraseña es obligatoria"),
 });
 
 const LoginPage = () => {
   const { handleLogin, loading } = useAuth();
   const { user } = useSelector((state: RootState) => state.auth);
+  const { message } = useSelector((state: RootState) => state.error);
 
   const {
     register,
@@ -23,7 +27,7 @@ const LoginPage = () => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
-    mode: "onSubmit", 
+    mode: "onSubmit",
     defaultValues: {
       email: "",
       password: "",
@@ -34,27 +38,25 @@ const LoginPage = () => {
     handleLogin(data.email, data.password);
   };
 
-  if(user) {
-    return (
-      <h2 className="text-light text-lg md:text-2xl font-semibold text-center mb-6">
-          Ya estas logueado, podes navegar en el feed
-      </h2>
-    )
-  }
-
   return (
     <div className="flex min-h-screen items-center justify-center px-4 bg-dark">
       <div className="w-full max-w-md md:max-w-lg p-6 md:p-8 bg-yellow-400 rounded-2xl shadow-lg space-y-6">
         <h2 className="text-light text-lg md:text-2xl font-semibold text-center mb-6">
           Login
         </h2>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 md:space-y-5" noValidate>
+        {user && <Alert message="Ya estas logueado, podes navegar en el feed" type="info" />}
+        {message && <Alert message={message} type="error" />}
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="space-y-4 md:space-y-5"
+          noValidate
+        >
           <div>
             <Input
               type="email"
               placeholder="Email"
               errorMessage={errors.email && errors.email.message}
-              {...register("email")} 
+              {...register("email")}
             />
           </div>
           <div>
@@ -62,10 +64,10 @@ const LoginPage = () => {
               type="password"
               placeholder="Contraseña"
               errorMessage={errors.password && errors.password.message}
-              {...register("password")} 
+              {...register("password")}
             />
           </div>
-          <Button type="submit" fullWidth > 
+          <Button type="submit" disabled={!!user} fullWidth>
             {loading ? "Cargando..." : "Iniciar sesión"}
           </Button>
         </form>

@@ -4,6 +4,7 @@ import axios from "axios";
 import { login, logout } from "@/state/authSlice";
 import { useRouter } from "next/navigation";
 import { AppDispatch, RootState } from "@/state/store";
+import { clearError, setError } from "@/state/errorSlice";
 
 export const useAuth = () => {
   const [loading, setLoading] = useState(false);
@@ -20,10 +21,12 @@ export const useAuth = () => {
 
       if (res.status === 200) {
         dispatch(login(email));
+        dispatch(clearError());
         router.push("/feed");
       }
     } catch (error) {
       console.log(error);
+      dispatch(setError("Error. Verificar usuario y contraseña"));
     } finally {
       setLoading(false);
     }

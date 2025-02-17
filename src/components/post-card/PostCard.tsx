@@ -26,10 +26,9 @@ const PostCard: React.FC<PostProps> = ({ post, onCommentSubmit }) => {
   };
 
   return (
-    <div className="bg-white p-4 rounded-xl shadow-md mb-6">
-      <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
-
-      {post.images && post.images.length > 0 && ( // Optional chaining y length combinados
+    <div className="bg-light p-4 rounded-xl shadow-md mb-6">
+      <h2 className="text-xl font-semibold mb-2 text-secondary">{post.title}</h2>
+      {post.images && post.images.length > 0 && (
         <div className="relative w-full h-64 overflow-hidden">
           <Image
             src={post.images[currentImage] ?? "/imagen1"}
