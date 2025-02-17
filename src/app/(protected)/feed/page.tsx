@@ -1,7 +1,6 @@
 "use client";
-import { useEffect, useRef } from "react";
+
 import { useFeed } from "@/hooks/useFeed";
-import { useAuth } from "@/hooks/useAuth";
 import { PostCard } from "@/components";
 
 const FeedPage = () => {
