@@ -5,10 +5,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { useAuth } from "@/hooks/useAuth";
 import Button from "../button/Button";
+import { useSelector } from "react-redux";
+import { RootState } from "@/state/store";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { handleLogout } = useAuth();
+  const user = useSelector((state: RootState) => state.auth.user);
+
 
   return (
     <>
@@ -30,9 +34,9 @@ export default function Navbar() {
             <Link href="/feed" className="hover:text-gray-300">
               Feed
             </Link>
-            <Button onClick={handleLogout} variant="secondary">
-              Logout
-            </Button>
+            {user && <Button onClick={handleLogout} variant="secondary">
+            Logout
+          </Button>}
           </nav>
 
           {/* Mobile Menu Button */}
@@ -49,7 +53,7 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="fixed inset-0 bg-black/95 flex flex-col items-center gap-8 text-xl md:hidden h-100 z-50 pt-5">
-                      <Link href="/">
+          <Link href="/">
             <Image
               src="/logo.png"
               alt="Logo"
@@ -67,9 +71,10 @@ export default function Navbar() {
           <Link href="/feed" onClick={() => setIsOpen(false)}>
             Feed
           </Link>
-          <Button onClick={handleLogout} variant="secondary">
-              Logout
-            </Button>
+          {user && <Button onClick={handleLogout} variant="secondary">
+            Logout
+          </Button>}
+          
         </div>
       )}
     </>

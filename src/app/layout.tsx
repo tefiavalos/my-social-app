@@ -4,7 +4,7 @@ import "./globals.css";
 
 
 import Providers from "@/state/Providers";
-import Navbar from "@/components/nav-bar/navBar";
+import Navbar from "@/components/nav-bar/NavBar";
 
 
 const geistSans = Geist({
