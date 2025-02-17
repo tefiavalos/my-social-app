@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setPosts, addPosts, addComment } from "@/state/feedSlice";
@@ -12,36 +12,28 @@ export const useFeed = () => {
   const posts = useSelector((state: RootState) => state.feed.posts) || [];
   const observerRef = useRef<IntersectionObserver | null>(null);
 
-  const fetchPosts = useCallback(
-    async (pageNumber: number) => {
-      if (loading || !hasMore) return;
-      setLoading(true);
+  const fetchPosts = useRef(async (pageNumber: number) => {
+    setLoading(true);
+    try {
+      console.log(`Fetching page ${pageNumber}`);
+      const res = await axios.get(`/api/posts?page=${pageNumber}`);
 
-      try {
-        console.log(`Fetching page ${pageNumber}`);
-        const res = await axios.get(`/api/posts?page=${pageNumber}`);
-
-        if (res.data.posts.length === 0) {
-          setHasMore(false);
-        } else {
-          dispatch(
-            pageNumber === 1
-              ? setPosts(res.data.posts)
-              : addPosts(res.data.posts)
-          );
-        }
-      } catch (error) {
-        console.error("Error al obtener los posts:", error);
-      } finally {
-        setLoading(false);
+      if (res.data.posts.length === 0) {
+        setHasMore(false);
+      } else {
+        dispatch(pageNumber === 1 ? setPosts(res.data.posts) : addPosts(res.data.posts));
       }
-    },
-    [dispatch, loading, hasMore]
-  );
+    } catch (error) {
+      console.error("Error al obtener los posts:", error);
+    } finally {
+      setLoading(false);
+    }
+  });
 
   useEffect(() => {
-    fetchPosts(page);
-  }, [page]);
+    if (!hasMore || loading) return;
+    fetchPosts.current(page);
+  }, [page, hasMore]);
 
   const lastPostRef = useCallback(
     (node: HTMLDivElement | null) => {
@@ -56,7 +48,7 @@ export const useFeed = () => {
 
       if (node) observerRef.current.observe(node);
     },
-    [loading, hasMore]
+    [hasMore, loading]
   );
 
   const handleCommentSubmit = async (postId: number, comment: string) => {
@@ -75,3 +67,4 @@ export const useFeed = () => {
 
   return { posts, handleCommentSubmit, loading, lastPostRef, hasMore };
 };
+
