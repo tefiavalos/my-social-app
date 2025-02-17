@@ -7,15 +7,15 @@ import { RootState } from "@/state/store";
 
 export default function Home() {
   const router = useRouter();
-  const authToken = useSelector((state: RootState) => state.auth.user);
+  const { user } = useSelector((state: RootState) => state.auth);
 
   useEffect(() => {
-    if (!authToken) {
+    if (!user) {
       router.replace("/login");
     } else {
       router.replace("/feed");
     }
-  }, [authToken, router]);
+  }, [user, router]);
 
   return null;
 }

@@ -11,17 +11,17 @@ export default function ProtectedLayout({
   children: React.ReactNode;
 }) {
   const router = useRouter();
-  const authToken = useSelector((state: RootState) => state.auth.user);
+  const { user } = useSelector((state: RootState) => state.auth);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
-    if (!authToken) {
+    if (!user) {
       router.replace("/login");
     }
-  }, [authToken, router]);
+  }, [user, router]);
 
-  if (!isMounted || !authToken) return null;
+  if (!isMounted || !user) return null;
 
   return <>{children}</>;
 }

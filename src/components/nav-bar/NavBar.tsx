@@ -7,6 +7,7 @@ import { useAuth } from "@/hooks/useAuth";
 import Button from "../button/Button";
 import { useSelector } from "react-redux";
 import { RootState } from "@/state/store";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,7 +46,7 @@ export default function Navbar() {
           {/* Desktop Nav */}
           <nav className="hidden md:flex gap-6 items-center">
             {navItems.map((item) => (
-              <Link href={item.href} className="hover:text-gray-300">
+              <Link href={item.href} key={uuidv4()} className="hover:text-gray-300">
                 {item.text}
               </Link>
             ))}
@@ -63,7 +64,7 @@ export default function Navbar() {
           </button>
         </div>
       </header>
-      
+
       {/* Mobile Menu */}
       {isOpen && (
         <div className="fixed inset-0 bg-black/95 flex flex-col items-center gap-8 text-xl md:hidden h-100 z-50 pt-5">
@@ -83,7 +84,7 @@ export default function Navbar() {
             ✖
           </button>
           {navItems.map((item) => (
-            <Link href={item.href} className="hover:text-gray-300">
+            <Link href={item.href} key={uuidv4()} className="hover:text-gray-300">
               {item.text}
             </Link>
           ))}

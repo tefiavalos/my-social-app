@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setPosts, addPosts, addComment } from "@/state/feedSlice";
@@ -12,8 +12,10 @@ export const useFeed = () => {
   const posts = useSelector((state: RootState) => state.feed.posts) || [];
   const observerRef = useRef<IntersectionObserver | null>(null);
 
-  const fetchPosts = useRef(async (pageNumber: number) => {
+  const fetchPosts = useCallback(async (pageNumber: number) => {
+    if (loading || !hasMore) return; 
     setLoading(true);
+
     try {
       console.log(`Fetching page ${pageNumber}`);
       const res = await axios.get(`/api/posts?page=${pageNumber}`);
@@ -28,28 +30,24 @@ export const useFeed = () => {
     } finally {
       setLoading(false);
     }
-  });
+  }, [dispatch, loading, hasMore]);
 
   useEffect(() => {
-    if (!hasMore || loading) return;
-    fetchPosts.current(page);
-  }, [page, hasMore]);
+    fetchPosts(page);
+  }, [page]);
 
-  const lastPostRef = useCallback(
-    (node: HTMLDivElement | null) => {
-      if (loading || !hasMore) return;
-      if (observerRef.current) observerRef.current.disconnect();
+  const lastPostRef = useCallback((node: HTMLDivElement | null) => {
+    if (loading || !hasMore) return;
+    if (observerRef.current) observerRef.current.disconnect();
 
-      observerRef.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-          setPage((prevPage) => prevPage + 1);
-        }
-      });
+    observerRef.current = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        setPage(prevPage => prevPage + 1); 
+      }
+    });
 
-      if (node) observerRef.current.observe(node);
-    },
-    [hasMore, loading]
-  );
+    if (node) observerRef.current.observe(node);
+  }, [loading, hasMore]);
 
   const handleCommentSubmit = async (postId: number, comment: string) => {
     if (!comment) return;
@@ -67,4 +65,3 @@ export const useFeed = () => {
 
   return { posts, handleCommentSubmit, loading, lastPostRef, hasMore };
 };
-
