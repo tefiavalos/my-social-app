@@ -13,6 +13,20 @@ export default function Navbar() {
   const { handleLogout } = useAuth();
   const user = useSelector((state: RootState) => state.auth.user);
 
+  const navItems = [{ href: "/feed", text: "Feed" }];
+
+  const shouldRenderLogoutButton = () => {
+    if (user) {
+      return (
+        <Button onClick={handleLogout} variant="secondary">
+          Logout
+        </Button>
+      );
+    } else {
+      return null;
+    }
+  };
+
   return (
     <>
       <header className="fixed top-0 left-0 w-full backdrop-blur-md bg-black/50 text-white z-50">
@@ -30,14 +44,12 @@ export default function Navbar() {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex gap-6 items-center">
-            <Link href="/feed" className="hover:text-gray-300">
-              Feed
-            </Link>
-            {user && (
-              <Button onClick={handleLogout} variant="secondary">
-                Logout
-              </Button>
-            )}
+            {navItems.map((item) => (
+              <Link href={item.href} className="hover:text-gray-300">
+                {item.text}
+              </Link>
+            ))}
+            {shouldRenderLogoutButton()}
           </nav>
 
           {/* Mobile Menu Button */}
@@ -51,6 +63,7 @@ export default function Navbar() {
           </button>
         </div>
       </header>
+      
       {/* Mobile Menu */}
       {isOpen && (
         <div className="fixed inset-0 bg-black/95 flex flex-col items-center gap-8 text-xl md:hidden h-100 z-50 pt-5">
@@ -69,14 +82,12 @@ export default function Navbar() {
           >
             ✖
           </button>
-          <Link href="/feed" onClick={() => setIsOpen(false)}>
-            Feed
-          </Link>
-          {user && (
-            <Button onClick={handleLogout} variant="secondary">
-              Logout
-            </Button>
-          )}
+          {navItems.map((item) => (
+            <Link href={item.href} className="hover:text-gray-300">
+              {item.text}
+            </Link>
+          ))}
+          {shouldRenderLogoutButton()}
         </div>
       )}
     </>

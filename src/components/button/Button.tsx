@@ -6,7 +6,7 @@ type ButtonProps = {
   size?: "sm" | "md" | "lg";
   fullWidth?: boolean;
   children: React.ReactNode;
-  onClick?: () => void;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean;
   className?: string;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
@@ -19,6 +19,7 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   disabled = false,
   className = "",
+  type="button",
   ...props
 }) => {
   const baseStyles =
