@@ -19,7 +19,6 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   disabled = false,
   className = "",
-  type="button",
   ...props
 }) => {
   const baseStyles =
