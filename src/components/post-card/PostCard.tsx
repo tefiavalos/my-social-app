@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import CommentSection from "./CommentSection";
+import Image from "next/image";
 
 interface PostProps {
   post: {
@@ -21,7 +22,7 @@ const PostCard: React.FC<PostProps> = ({ post, onCommentSubmit }) => {
       <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
       {post.images && post.images.length > 0 && (
         <div className="relative w-full h-64 overflow-hidden">
-          <img
+          <Image
             src={post.images[currentImage]}
             alt={`Imagen ${currentImage + 1}`}
             className="w-full h-full object-cover rounded-lg"

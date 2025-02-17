@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { Button, Input } from "@/components";
 import { useForm } from "react-hook-form";
@@ -14,11 +13,6 @@ const schema = yup.object().shape({
 
 const LoginPage = () => {
   const { handleLogin, loading } = useAuth();
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   const {
     register,

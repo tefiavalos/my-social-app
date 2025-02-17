@@ -41,7 +41,7 @@ export const useFeed = () => {
 
   useEffect(() => {
     fetchPosts(page);
-  }, [page]);
+  }, [page, fetchPosts]);
 
   const lastPostRef = useCallback(
     (node: HTMLDivElement | null) => {
