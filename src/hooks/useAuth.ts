@@ -23,7 +23,7 @@ export const useAuth = () => {
         router.push("/feed");
       }
     } catch (error) {
-      alert("Credenciales inválidas");
+      console.log(error);
     } finally {
       setLoading(false);
     }
