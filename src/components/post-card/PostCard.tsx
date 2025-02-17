@@ -23,9 +23,11 @@ const PostCard: React.FC<PostProps> = ({ post, onCommentSubmit }) => {
       {post.images && post.images.length > 0 && (
         <div className="relative w-full h-64 overflow-hidden">
           <Image
-            src={post.images[currentImage]}
+            src={post.images[currentImage] ?? '/imagen1'}
             alt={`Imagen ${currentImage + 1}`}
             className="w-full h-full object-cover rounded-lg"
+            width={500}
+            height={500}
           />
           {post.images.length > 1 && (
             <div className="absolute top-1/2 left-0 right-0 flex justify-between transform -translate-y-1/2 px-4">

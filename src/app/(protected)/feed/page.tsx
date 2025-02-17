@@ -1,7 +1,9 @@
 "use client";
 
 import { useFeed } from "@/hooks/useFeed";
-import { PostCard } from "@/components";
+import dynamic from "next/dynamic";
+
+const PostCard = dynamic(() => import("@/components/post-card/PostCard"), { ssr: false });
 
 const FeedPage = () => {
   const { posts, handleCommentSubmit, loading, lastPostRef } = useFeed();

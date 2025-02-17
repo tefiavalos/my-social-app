@@ -6,8 +6,8 @@ const posts = [
     title: "Post de prueba",
     comments: ["¡Hola mundo!"],
     images: [
-      "https://picsum.photos/300/200.jpg",
-      "https://picsum.photos/300/300.jpg",
+      "/imagen2.jpg",
+      "/imagen4.jpg",
     ],
   },
   { id: 2, title: "Otro post", comments: [], images: [] },
@@ -15,15 +15,15 @@ const posts = [
     id: 3,
     title: "Post con imagen",
     comments: ["Interesante!"],
-    images: ["https://picsum.photos/300/200.jpg"],
+    images: ["/imagen4.jpg"],
   },
   {
     id: 4,
     title: "Post de prueba",
     comments: ["¡Hola mundo!"],
     images: [
-      "https://picsum.photos/300/200.jpg",
-      "https://picsum.photos/300/300.jpg",
+      "/imagen5.jpg",
+      "/imagen4.jpg",
     ],
   },
   { id: 5, title: "Otro post", comments: [], images: [] },
@@ -31,7 +31,7 @@ const posts = [
     id: 6,
     title: "Post con imagen",
     comments: ["Interesante!"],
-    images: ["https://picsum.photos/300/200.jpg"],
+    images: ["/imagen2.jpg"],
   },
 ];
 

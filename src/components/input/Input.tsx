@@ -36,6 +36,8 @@ const Input: React.FC<InputProps> = ({
         disabled && disabledStyles,
         className
       )}
+      id={placeholder}
+      name={placeholder}
     />
   );
 };
