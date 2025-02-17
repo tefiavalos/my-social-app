@@ -26,10 +26,22 @@ const PostCard: React.FC<PostProps> = ({ post, onCommentSubmit }) => {
           />
           {post.images.length > 1 && (
             <div className="absolute top-1/2 left-0 right-0 flex justify-between transform -translate-y-1/2 px-4">
-              <button onClick={() => setCurrentImage((prev) => (prev > 0 ? prev - 1 : post.images!.length - 1))}>
+              <button
+                onClick={() =>
+                  setCurrentImage((prev) =>
+                    prev > 0 ? prev - 1 : post.images!.length - 1
+                  )
+                }
+              >
                 ◀
               </button>
-              <button onClick={() => setCurrentImage((prev) => (prev < post.images!.length - 1 ? prev + 1 : 0))}>
+              <button
+                onClick={() =>
+                  setCurrentImage((prev) =>
+                    prev < post.images!.length - 1 ? prev + 1 : 0
+                  )
+                }
+              >
                 ▶
               </button>
             </div>
@@ -37,7 +49,11 @@ const PostCard: React.FC<PostProps> = ({ post, onCommentSubmit }) => {
         </div>
       )}
 
-      <CommentSection postId={post.id} comments={post.comments} onCommentSubmit={onCommentSubmit} />
+      <CommentSection
+        postId={post.id}
+        comments={post.comments}
+        onCommentSubmit={onCommentSubmit}
+      />
     </div>
   );
 };

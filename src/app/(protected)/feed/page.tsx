@@ -13,11 +13,18 @@ const FeedPage = () => {
         <h1 className="text-2xl font-bold">Feed</h1>
       </div>
 
-      {Array.isArray(posts) ? posts.map((post, index) => (
-        <div key={post.id} ref={index === posts.length - 1 ? lastPostRef : null}>
-          <PostCard post={post} onCommentSubmit={handleCommentSubmit} />
-        </div>
-      )) : <p>Error cargando posts</p>}
+      {Array.isArray(posts) ? (
+        posts.map((post, index) => (
+          <div
+            key={post.id}
+            ref={index === posts.length - 1 ? lastPostRef : null}
+          >
+            <PostCard post={post} onCommentSubmit={handleCommentSubmit} />
+          </div>
+        ))
+      ) : (
+        <p>Error cargando posts</p>
+      )}
 
       {loading && <p className="text-center mt-4">Cargando más posts...</p>}
     </div>

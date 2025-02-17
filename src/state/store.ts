@@ -7,12 +7,12 @@ import feedReducer from "./feedSlice"; // Importar el feedReducer
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["auth"], 
+  whitelist: ["auth"],
 };
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  feed: feedReducer, 
+  feed: feedReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -22,7 +22,11 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: ["persist/PERSIST", "persist/REHYDRATE", "persist/REGISTER"],
+        ignoredActions: [
+          "persist/PERSIST",
+          "persist/REHYDRATE",
+          "persist/REGISTER",
+        ],
       },
     }),
 });

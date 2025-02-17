@@ -12,42 +12,52 @@ export const useFeed = () => {
   const posts = useSelector((state: RootState) => state.feed.posts) || [];
   const observerRef = useRef<IntersectionObserver | null>(null);
 
-  const fetchPosts = useCallback(async (pageNumber: number) => {
-    if (loading || !hasMore) return;  // No hacer petición si ya está cargando o no hay más
-    setLoading(true);
+  const fetchPosts = useCallback(
+    async (pageNumber: number) => {
+      if (loading || !hasMore) return;
+      setLoading(true);
 
-    try {
-      console.log(`Fetching page ${pageNumber}`);
-      const res = await axios.get(`/api/posts?page=${pageNumber}`);
+      try {
+        console.log(`Fetching page ${pageNumber}`);
+        const res = await axios.get(`/api/posts?page=${pageNumber}`);
 
-      if (res.data.posts.length === 0) {
-        setHasMore(false);
-      } else {
-        dispatch(pageNumber === 1 ? setPosts(res.data.posts) : addPosts(res.data.posts));
+        if (res.data.posts.length === 0) {
+          setHasMore(false);
+        } else {
+          dispatch(
+            pageNumber === 1
+              ? setPosts(res.data.posts)
+              : addPosts(res.data.posts)
+          );
+        }
+      } catch (error) {
+        console.error("Error al obtener los posts:", error);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.error("Error al obtener los posts:", error);
-    } finally {
-      setLoading(false);
-    }
-  }, [dispatch, loading, hasMore]);
+    },
+    [dispatch, loading, hasMore]
+  );
 
   useEffect(() => {
     fetchPosts(page);
-  }, [page]);  // Se ejecuta solo cuando cambia la página
+  }, [page]);
 
-  const lastPostRef = useCallback((node: HTMLDivElement | null) => {
-    if (loading || !hasMore) return;
-    if (observerRef.current) observerRef.current.disconnect();
+  const lastPostRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      if (loading || !hasMore) return;
+      if (observerRef.current) observerRef.current.disconnect();
 
-    observerRef.current = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting) {
-        setPage(prevPage => prevPage + 1);  // Incrementa la página solo cuando sea necesario
-      }
-    });
+      observerRef.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          setPage((prevPage) => prevPage + 1);
+        }
+      });
 
-    if (node) observerRef.current.observe(node);
-  }, [loading, hasMore]);
+      if (node) observerRef.current.observe(node);
+    },
+    [loading, hasMore]
+  );
 
   const handleCommentSubmit = async (postId: number, comment: string) => {
     if (!comment) return;

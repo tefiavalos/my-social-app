@@ -48,8 +48,13 @@ const LoginPage = () => {
   return (
     <div className="flex min-h-screen items-center justify-center px-4 bg-dark">
       <div className="w-full max-w-md md:max-w-lg p-6 md:p-8 bg-yellow-400 rounded-2xl shadow-lg space-y-6">
-        <h2 className="text-light text-lg md:text-2xl font-semibold text-center mb-6">Login</h2>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 md:space-y-6">
+        <h2 className="text-light text-lg md:text-2xl font-semibold text-center mb-6">
+          Login
+        </h2>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="space-y-4 md:space-y-6"
+        >
           <div>
             <Input
               type="email"
@@ -57,7 +62,11 @@ const LoginPage = () => {
               {...register("email")}
               onChange={(e) => handleInputChange("email", e.target.value)}
             />
-            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
+            {errors.email && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.email.message}
+              </p>
+            )}
           </div>
 
           <div>
@@ -67,7 +76,11 @@ const LoginPage = () => {
               {...register("password")}
               onChange={(e) => handleInputChange("password", e.target.value)}
             />
-            {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
+            {errors.password && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.password.message}
+              </p>
+            )}
           </div>
 
           <Button type="submit" fullWidth>

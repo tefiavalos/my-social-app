@@ -7,7 +7,11 @@ interface CommentSectionProps {
   onCommentSubmit: (postId: number, comment: string) => void;
 }
 
-const CommentSection: React.FC<CommentSectionProps> = ({ postId, comments, onCommentSubmit }) => {
+const CommentSection: React.FC<CommentSectionProps> = ({
+  postId,
+  comments,
+  onCommentSubmit,
+}) => {
   const [newComment, setNewComment] = useState("");
 
   return (
@@ -15,7 +19,9 @@ const CommentSection: React.FC<CommentSectionProps> = ({ postId, comments, onCom
       <h3 className="text-lg font-semibold">Comentarios</h3>
       <ul className="bg-gray-100 p-2 rounded-md mb-2">
         {comments.map((comment, index) => (
-          <li key={index} className="text-gray-700">{comment}</li>
+          <li key={index} className="text-gray-700">
+            {comment}
+          </li>
         ))}
       </ul>
 

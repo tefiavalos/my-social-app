@@ -13,12 +13,10 @@ export default function Navbar() {
   const { handleLogout } = useAuth();
   const user = useSelector((state: RootState) => state.auth.user);
 
-
   return (
     <>
       <header className="fixed top-0 left-0 w-full backdrop-blur-md bg-black/50 text-white z-50">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          {/* Logo */}
           <Link href="/">
             <Image
               src="/logo.png"
@@ -34,9 +32,11 @@ export default function Navbar() {
             <Link href="/feed" className="hover:text-gray-300">
               Feed
             </Link>
-            {user && <Button onClick={handleLogout} variant="secondary">
-            Logout
-          </Button>}
+            {user && (
+              <Button onClick={handleLogout} variant="secondary">
+                Logout
+              </Button>
+            )}
           </nav>
 
           {/* Mobile Menu Button */}
@@ -44,9 +44,9 @@ export default function Navbar() {
             className="md:hidden flex flex-col gap-1 w-8 h-6"
             onClick={() => setIsOpen(!isOpen)}
           >
-            <span className="w-full h-1 bg-white rounded"></span>
-            <span className="w-full h-1 bg-white rounded"></span>
-            <span className="w-full h-1 bg-white rounded"></span>
+            <span className="w-full h-1 bg-white rounded" />
+            <span className="w-full h-1 bg-white rounded" />
+            <span className="w-full h-1 bg-white rounded" />
           </button>
         </div>
       </header>
@@ -71,10 +71,11 @@ export default function Navbar() {
           <Link href="/feed" onClick={() => setIsOpen(false)}>
             Feed
           </Link>
-          {user && <Button onClick={handleLogout} variant="secondary">
-            Logout
-          </Button>}
-          
+          {user && (
+            <Button onClick={handleLogout} variant="secondary">
+              Logout
+            </Button>
+          )}
         </div>
       )}
     </>

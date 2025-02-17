@@ -7,5 +7,8 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: true, token: "mock-token" });
   }
 
-  return NextResponse.json({ success: false, error: "Credenciales inválidas" }, { status: 401 });
+  return NextResponse.json(
+    { success: false, error: "Credenciales inválidas" },
+    { status: 401 }
+  );
 }

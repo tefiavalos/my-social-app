@@ -3,13 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { login, logout } from "@/state/authSlice";
 import { useRouter } from "next/navigation";
-import { AppDispatch, RootState } from "@/state/store"; 
+import { AppDispatch, RootState } from "@/state/store";
 
 export const useAuth = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
-  const { isAuthenticated, user } = useSelector((state: RootState) => state.auth);
+  const { isAuthenticated, user } = useSelector(
+    (state: RootState) => state.auth
+  );
 
   const handleLogin = async (email: string, password: string) => {
     setLoading(true);
