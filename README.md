@@ -33,5 +33,17 @@ Es una web alojada en vercel:
 4. Se realizaron unos primeros builds fallidos por algunas importaciones que no se usaban y otros pequeños errores.
 5. Se solucionaron los problemas de build y se hizo un redeploy.
 
+## Para correr storybook
+
+```bash
+npm run storybook
+# or
+yarn storybook
+# or
+pnpm storybook
+# or
+bun storybook
+```
+
 ## Toma de decisiones
 [Ver notion](https://juniper-confidence-15e.notion.site/Next-js-Challenge-T-cnico-Challenge-Web-App-Red-Social-B-sica-19e5eb93fe17805b8a7aff5b54833e63)
