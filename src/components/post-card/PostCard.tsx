@@ -39,10 +39,10 @@ const PostCard: React.FC<PostProps> = ({ post, onCommentSubmit }) => {
           <Image
             src={post.images[currentImage] ?? "/imagen1"}
             alt={`Imagen ${currentImage + 1}`}
-            className="w-full h-full object-cover rounded-xl"
+            className="w-full h-full object-cover rounded-xl cursor-pointer"
             width={500}
             height={500}
-            onClick={() => setIsModalOpen(true)} // Abre el modal al hacer clic
+            onClick={() => setIsModalOpen(true)}
           />
 
           {post.images.length > 1 && (
