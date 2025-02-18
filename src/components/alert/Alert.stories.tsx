@@ -8,12 +8,12 @@ const meta: Meta<typeof Alert> = {
   argTypes: {
     message: {
       description: 'The message to display in the alert.',
-      type: 'string', // Explicitly define the type
+      type: 'string', 
     },
     type: {
       description: 'The type of alert.',
-      control: { type: 'select' }, // Use a select control
-      options: ['base', 'error', 'success', 'warning', 'info'], // Provide options
+      control: { type: 'select' }, 
+      options: ['base', 'error', 'success', 'warning', 'info'], 
     },
   },
 };
