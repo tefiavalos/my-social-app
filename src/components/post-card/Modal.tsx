@@ -1,14 +1,10 @@
-import { Comment } from "@/types/posts";
+"use client";
+
 import Image from "next/image";
 
 interface Props {
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  post: {
-    id: number;
-    title: string;
-    comments: Comment[];
-    images?: string[];
-  };
+  images: string[];
   currentImage: number;
   handleNextImage: () => void;
   handlePrevImage: () => void;
@@ -16,28 +12,28 @@ interface Props {
 
 const Modal: React.FC<Props> = ({
   setIsModalOpen,
-  post,
+  images,
   currentImage,
   handlePrevImage,
   handleNextImage,
 }) => {
   return (
-    post.images &&
-    post.images.length && (
+    images &&
+    images.length && (
       <div
         className="fixed inset-0 bg-primary bg-opacity-80 flex items-center justify-center z-50"
         onClick={() => setIsModalOpen(false)}
       >
         <div className="relative p-4">
           <Image
-            src={post.images[currentImage] ?? "/imagen1"}
+            src={images[currentImage] ?? "/imagen1"}
             alt={`Imagen ${currentImage + 1}`}
             className="object-contain rounded-xl"
             width={500}
             height={500}
             onClick={(e) => e.stopPropagation()}
           />
-          {post.images.length > 1 && (
+          {images.length > 1 && (
             <div className="absolute top-1/2 left-0 right-0 flex justify-between transform -translate-y-1/2 px-4">
               <button onClick={handlePrevImage} className="text-white text-3xl">
                 ◀
