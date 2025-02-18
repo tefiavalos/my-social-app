@@ -4,6 +4,7 @@ import { useState } from "react";
 import CommentSection from "./CommentSection";
 import Image from "next/image";
 import { Comment } from "@/types/posts";
+import Modal from "./Modal";
 
 interface PostProps {
   post: {
@@ -59,39 +60,14 @@ const PostCard: React.FC<PostProps> = ({ post, onCommentSubmit }) => {
         onCommentSubmit={onCommentSubmit}
       />
 
-      {/* Modal */}
-      {isModalOpen && post.images && post.images.length && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
-          onClick={() => setIsModalOpen(false)} // Cierra el modal al hacer clic fuera
-        >
-          <div className="relative p-4 max-w-full max-h-full">
-            <Image
-              src={post.images[currentImage] ?? "/imagen1"}
-              alt={`Imagen ${currentImage + 1}`}
-              className="w-auto h-auto max-w-screen max-h-screen object-contain rounded-xl"
-              width={300}
-              height={300}
-              onClick={(e) => e.stopPropagation()} // Evita cerrar el modal al hacer clic en la imagen
-            />
-            {post.images.length > 1 && (
-              <div className="absolute top-1/2 left-0 right-0 flex justify-between transform -translate-y-1/2 px-4">
-                <button
-                  onClick={handlePrevImage}
-                  className="text-white text-3xl"
-                >
-                  ◀
-                </button>
-                <button
-                  onClick={handleNextImage}
-                  className="text-white text-3xl"
-                >
-                  ▶
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
+      {isModalOpen && (
+        <Modal
+          setIsModalOpen={setIsModalOpen}
+          post={post}
+          currentImage={currentImage}
+          handleNextImage={handleNextImage}
+          handlePrevImage={handlePrevImage}
+        ></Modal>
       )}
     </div>
   );
