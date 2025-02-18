@@ -11,10 +11,16 @@ interface Props {
   };
   currentImage: number;
   handleNextImage: () => void;
-  handlePrevImage: () => void
+  handlePrevImage: () => void;
 }
 
-const Modal: React.FC<Props> = ({ setIsModalOpen, post, currentImage, handlePrevImage, handleNextImage }) => {
+const Modal: React.FC<Props> = ({
+  setIsModalOpen,
+  post,
+  currentImage,
+  handlePrevImage,
+  handleNextImage,
+}) => {
   return (
     post.images &&
     post.images.length && (
@@ -47,4 +53,4 @@ const Modal: React.FC<Props> = ({ setIsModalOpen, post, currentImage, handlePrev
   );
 };
 
-export default Modal
+export default Modal;
