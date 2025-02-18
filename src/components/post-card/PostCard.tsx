@@ -21,7 +21,7 @@ const PostCard: React.FC<PostProps> = ({ post, onCommentSubmit }) => {
         {post.title}
       </h2>
 
-      {post.images && <PostImages images={post.images} />}
+      {post.images && post.images.length > 0 && <PostImages images={post.images} />}
 
       <CommentSection
         postId={post.id}
