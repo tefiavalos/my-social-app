@@ -7,6 +7,7 @@ const meta: Meta<typeof Button> = {
   args: {
     children: "Click me",
   },
+  tags: ['autodocs'],
   argTypes: {
     variant: {
       control: { type: "radio" },

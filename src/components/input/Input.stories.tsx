@@ -5,6 +5,7 @@ import Input from "./Input";
 export default {
   title: "Components/Input",
   component: Input,
+  tags: ['autodocs'],
   argTypes: {
     type: {
       control: "radio",
