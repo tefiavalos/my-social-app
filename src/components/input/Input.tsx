@@ -1,5 +1,6 @@
 import React from "react";
 import clsx from "clsx";
+import { v4 as uuidv4 } from "uuid";
 
 type InputProps = {
   type?: "text" | "email" | "password";
@@ -34,8 +35,8 @@ const Input: React.FC<InputProps> = ({
           disabled && disabledStyles,
           className
         )}
-        id={placeholder}
         name={placeholder}
+        id={uuidv4()}
         {...rest}
       />
       <div className="h-3">
