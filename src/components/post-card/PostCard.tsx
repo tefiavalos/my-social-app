@@ -8,7 +8,7 @@ interface PostProps {
   post: {
     id: number;
     title: string;
-    comments: string[];
+    comments: any[];
     images?: string[];
   };
   onCommentSubmit: (postId: number, comment: string) => void;
@@ -27,7 +27,9 @@ const PostCard: React.FC<PostProps> = ({ post, onCommentSubmit }) => {
 
   return (
     <div className="bg-light p-4 rounded-xl shadow-md mb-6">
-      <h2 className="text-xl font-semibold mb-2 text-secondary">{post.title}</h2>
+      <h2 className="text-xl font-semibold mb-2 text-secondary">
+        {post.title}
+      </h2>
       {post.images && post.images.length > 0 && (
         <div className="relative w-full h-64 overflow-hidden">
           <Image

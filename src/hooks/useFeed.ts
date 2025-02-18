@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setPosts, addPosts, addComment } from "@/state/feedSlice";
@@ -11,52 +11,58 @@ export const useFeed = () => {
   const [hasMore, setHasMore] = useState(true);
   const dispatch = useDispatch<AppDispatch>();
   const posts = useSelector((state: RootState) => state.feed.posts) || [];
-  const observerRef = useRef<IntersectionObserver | null>(null);
 
-  const fetchPosts = useCallback(async (pageNumber: number) => {
-    if (loading || !hasMore) return; 
-    setLoading(true);
+  const fetchPosts = useCallback(
+    async (pageNumber: number) => {
+      if (loading || !hasMore) return;
+      setLoading(true);
 
-    try {
-      console.log(`Fetching page ${pageNumber}`);
-      const res = await axios.get(`/api/posts?page=${pageNumber}`);
-      dispatch(clearError());
-      if (res.data.posts.length === 0) {
-        setHasMore(false);
-      } else {
-        dispatch(pageNumber === 1 ? setPosts(res.data.posts) : addPosts(res.data.posts));
+      try {
+        const res = await axios.get(`/api/posts?page=${pageNumber}`);
+        dispatch(clearError());
+        if (res.data.posts.length === 0) {
+          setHasMore(false);
+        } else {
+          dispatch(
+            pageNumber === 1
+              ? setPosts(res.data.posts)
+              : addPosts(res.data.posts)
+          );
+        }
+      } catch (error) {
+        console.error("Error al obtener los posts:", error);
+        dispatch(setError("Error al obtener los posts"));
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.error("Error al obtener los posts:", error);
-      dispatch(setError("Error al obtener los posts"));
-    } finally {
-      setLoading(false);
-    }
-  }, [dispatch, loading, hasMore]);
+    },
+    [dispatch, loading, hasMore]
+  );
 
   useEffect(() => {
     fetchPosts(page);
   }, [page]);
 
-  const lastPostRef = useCallback((node: HTMLDivElement | null) => {
-    if (loading || !hasMore) return;
-    if (observerRef.current) observerRef.current.disconnect();
-
-    observerRef.current = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting) {
-        setPage(prevPage => prevPage + 1); 
-      }
-    });
-
-    if (node) observerRef.current.observe(node);
-  }, [loading, hasMore]);
+  const fetchMoreData = () => {
+    setPage((prevPage) => prevPage + 1);
+  };
 
   const handleCommentSubmit = async (postId: number, comment: string) => {
     if (!comment) return;
     setLoading(true);
 
+    //TODO: with a real enpoint we will have a userName and userId
     try {
-      const res = await axios.post("/api/posts", { postId, comment });
+      const userId = "789";
+      const userName = "Estefania";
+
+      const res = await axios.post("/api/posts", {
+        postId,
+        comment,
+        userId,
+        userName,
+      });
+
       dispatch(addComment(res.data));
       dispatch(clearError());
     } catch (error) {
@@ -67,5 +73,5 @@ export const useFeed = () => {
     }
   };
 
-  return { posts, handleCommentSubmit, loading, lastPostRef, hasMore };
+  return { posts, handleCommentSubmit, loading, fetchMoreData, hasMore };
 };

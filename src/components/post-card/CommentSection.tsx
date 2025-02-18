@@ -5,7 +5,7 @@ import { useState } from "react";
 
 interface CommentSectionProps {
   postId: number;
-  comments: string[];
+  comments: any[];
   onCommentSubmit: (postId: number, comment: string) => void;
 }
 
@@ -22,7 +22,10 @@ const CommentSection: React.FC<CommentSectionProps> = ({
       <ul className="bg-light p-2 rounded-md mb-2">
         {comments.map((comment, index) => (
           <li key={index} className="text-accent">
-            {comment}
+            <p className="font-bold">
+              {comment.userId ? comment.userName : "Anonimo"}
+            </p>
+            <p>{comment.text}</p>
           </li>
         ))}
       </ul>
