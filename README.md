@@ -1,8 +1,8 @@
-## My social app
+# My social app
 
 Esta es una primera entrega, se espera complejizar el proyecto.
 
-Para correr la APP localmente
+## Para correr la APP localmente
 
 ```bash
 npm run dev
