@@ -1,6 +1,6 @@
 "use client";
 
-import { Alert } from "@/components";
+import { Alert, Header } from "@/components";
 import { useFeed } from "@/hooks/useFeed";
 import { RootState } from "@/state/store";
 import dynamic from "next/dynamic";
@@ -18,7 +18,7 @@ const FeedPage = () => {
 
   return (
     <div className="max-w-2xl mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Feed</h1>
+      <Header text="Feed" />
       {message && <Alert message={message} type="error" />}
       <InfiniteScroll
         dataLength={posts.length}
@@ -34,7 +34,9 @@ const FeedPage = () => {
           />
         ))}
       </InfiniteScroll>
-      {!loading && posts.length === 0 && <Alert message="No posts yet" type="info" />}
+      {!loading && posts.length === 0 && (
+        <Alert message="No posts yet" type="info" />
+      )}
     </div>
   );
 };

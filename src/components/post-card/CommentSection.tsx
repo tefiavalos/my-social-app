@@ -16,12 +16,27 @@ const CommentSection: React.FC<CommentSectionProps> = ({
   onCommentSubmit,
 }) => {
   const [newComment, setNewComment] = useState("");
+  const [showAll, setShowAll] = useState(false);
+
+  const visibleComments = showAll ? comments : comments.slice(0, 2);
 
   return (
     <div className="mt-4">
-      <h3 className="text-lg font-semibold text-primary">Comentarios</h3>
+      <div className="flex items-center justify-between">
+        <h3 className="text-lg font-semibold text-primary">Comentarios</h3>
+        {comments.length > 2 && (
+          <Button
+            onClick={() => setShowAll(!showAll)}
+            size="sm"
+            variant="secondary"
+          >
+            {showAll ? "Mostrar menos" : "Ver todos"}
+          </Button>
+        )}
+      </div>
+
       <ul className="bg-light p-2 rounded-md mb-2">
-        {comments.map((comment, index) => (
+        {visibleComments.map((comment, index) => (
           <li key={index} className="text-accent">
             <p className="font-bold">
               {comment.userId ? comment.userName : "Anonimo"}
@@ -31,7 +46,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({
         ))}
       </ul>
 
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center space-x-2 mt-5">
         <Input
           type="text"
           value={newComment}

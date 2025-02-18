@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuth } from "@/hooks/useAuth";
-import { Alert, Button, Input } from "@/components";
+import { Alert, Button, Header, Input } from "@/components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -41,10 +41,13 @@ const LoginPage = () => {
   return (
     <div className="flex min-h-screen items-center justify-center px-4 bg-dark">
       <div className="w-full max-w-md md:max-w-lg p-6 md:p-8 bg-yellow-400 rounded-2xl shadow-lg space-y-6">
-        <h2 className="text-light text-lg md:text-2xl font-semibold text-center mb-6">
-          Login
-        </h2>
-        {user && <Alert message="Ya estas logueado, podes navegar en el feed" type="info" />}
+        <Header text="Login" />
+        {user && (
+          <Alert
+            message="Ya estas logueado, podes navegar en el feed"
+            type="info"
+          />
+        )}
         {message && <Alert message={message} type="error" />}
         <form
           onSubmit={handleSubmit(onSubmit)}

@@ -25,7 +25,7 @@ const Modal: React.FC<Props> = ({
     post.images &&
     post.images.length && (
       <div
-        className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
+        className="fixed inset-0 bg-primary bg-opacity-80 flex items-center justify-center z-50"
         onClick={() => setIsModalOpen(false)}
       >
         <div className="relative p-4">
