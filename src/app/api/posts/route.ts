@@ -79,7 +79,8 @@ export async function POST(req: Request) {
     post.comments.push(newComment);
 
     return NextResponse.json(post);
-  } catch (error) {
+  } catch (e) {
+    console.log(e)
     return NextResponse.json(
       { error: "Error en el servidor" },
       { status: 500 }

@@ -3,12 +3,13 @@
 import { useState } from "react";
 import CommentSection from "./CommentSection";
 import Image from "next/image";
+import { Comment } from "@/types/posts";
 
 interface PostProps {
   post: {
     id: number;
     title: string;
-    comments: any[];
+    comments: Comment[];
     images?: string[];
   };
   onCommentSubmit: (postId: number, comment: string) => void;

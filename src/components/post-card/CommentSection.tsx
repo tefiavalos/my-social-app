@@ -1,11 +1,12 @@
 "use client";
 
 import { Button, Input } from "@/components";
+import { Comment } from "@/types/posts";
 import { useState } from "react";
 
 interface CommentSectionProps {
   postId: number;
-  comments: any[];
+  comments: Comment[];
   onCommentSubmit: (postId: number, comment: string) => void;
 }
 
