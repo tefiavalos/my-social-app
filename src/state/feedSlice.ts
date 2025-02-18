@@ -1,9 +1,10 @@
+import { Comment } from "@/types/posts";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface Post {
   id: number;
   title: string;
-  comments: string[];
+  comments: Comment[];
 }
 
 interface FeedState {

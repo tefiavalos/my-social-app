@@ -34,7 +34,7 @@ const FeedPage = () => {
           />
         ))}
       </InfiniteScroll>
-      {!loading && posts.length === 0 && <p>No posts yet</p>}
+      {!loading && posts.length === 0 && <Alert message="No posts yet" type="info" />}
     </div>
   );
 };
